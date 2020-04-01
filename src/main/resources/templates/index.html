@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="width: 100%; background-color: #f2f2f2;">
+<tr th:each="weather : ${weatherForCity.getConsolidatedWeather()}">
+    <div style="float:left; width: 16.66%;">
+        <h2><p th:text="${weatherForCity.title}"></p></h2>
+        <p>Pomiar z dnia:</p>
+        <td th:text="${weather.getCreated()}"></td>
+        <p>Wilgotność: </p>
+        <td th:text="${weather.getHumidity()}"></td>
+        <p>Temperatura: </p>
+        <td th:text="${weather.getTheTemp()}"></td>
+        <br>
+        <td th:text="${weather.getWeatherStateName()}"></td>
+        <br>
+        <td><img th:src="${'https://www.metaweather.com/static/img/weather/'+weather.getWeatherStateAbbr()+'.svg'}"
+                 style="width: 60%;"></td>
+    </div>
+</tr>
+<div style="clear: both"></div>
+<h2>Sprawdz pogode dla swojego miasta</h2>
+<form method="post" th:action="@{/weather}">
+    Podaj miasto: <input type="text" name="cityName" th:value="${cityName}"/>
+    <input type="submit" value="Sprawdź"/>
+</form>
+</body>
+</html>
